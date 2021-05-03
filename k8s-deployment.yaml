@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  annotations:
+    kubernetes.io/change-cause: "ENV_CHANGE_CAUSE_MESSAGE"
+  labels:
+    app: content-api
+    version: dev
+  name: content-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: content-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: content-api
+    spec:
+      imagePullSecrets:
+      - name: registry-secret
+      containers:
+      - image: fabmedicalntt.azurecr.io/content-api:IMAGE_BUILD_ID
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+        name: content-api
+        resources:
+          limits:
+            memory: "400Mi"
+            cpu: "400m"
+        env:
+        - name: MONGODB_CONNECTION
+          valueFrom:
+            configMapKeyRef:
+              name: fabmedical-config
+              key: MONGODB_CONNECTION
