@@ -228,7 +228,7 @@ pipeline {
                     // สร้าง Deployment Resouce
                     sh "kubectl apply -f ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // สร้าง Service Resouce สำหรับทำ Service Discovery
-                    sh "kubectl apply -f ${env.K8S_SERVICE_YAML_PROFILE} --record=true"
+                    // sh "kubectl apply -f ${env.K8S_SERVICE_YAML_PROFILE} --record=true"
                 }
             }
         }
