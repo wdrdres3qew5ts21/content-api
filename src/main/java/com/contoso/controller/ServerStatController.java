@@ -1,5 +1,7 @@
 package com.contoso.controller;
 
+import org.jboss.logging.Logger;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -20,10 +22,14 @@ public class ServerStatController {
     @Inject
     public ServerStatService serverStatService;
 
+    private static final Logger LOG = Logger.getLogger(ServerStatController.class);
+
     @Path("stats")
     @GET
     public Stats showApplicationStats() {
-        return serverStatService.showServerStats();
+        Stats showServerStats = serverStatService.showServerStats();
+        LOG.info(showServerStats);
+        return showServerStats;
     }
 
 }

@@ -15,6 +15,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 
 import org.bson.Document;
+import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,13 +28,17 @@ public class SpeakerController {
     @Inject
     private MongoClient mongoClient;
 
+    private static final Logger LOG = Logger.getLogger(SpeakerController.class);
+
     @GET
     @Path("speakers")
     public FindIterable<Document> getAllSpeakers() {
         serverStatService.speakersPageHadBeenVisit();
-        MongoCollection<Document> speakerCollection = mongoClient.getDatabase(DBDatabase.CONTENT_DB).getCollection(DBCollection.SPEAKERS_COLLECTION);
+        MongoCollection<Document> speakerCollection = mongoClient.getDatabase(DBDatabase.CONTENT_DB)
+                .getCollection(DBCollection.SPEAKERS_COLLECTION);
+
+        LOG.info(speakerCollection);
         return speakerCollection.find();
     }
-    
 
 }

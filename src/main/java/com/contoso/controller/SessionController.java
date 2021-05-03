@@ -15,6 +15,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 
 import org.bson.Document;
+import org.jboss.logging.Logger;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,12 +28,17 @@ public class SessionController {
     @Inject
     private MongoClient mongoClient;
 
+    private static final Logger LOG = Logger.getLogger(SessionController.class);
+
     @GET
     @Path("sessions")
-    public FindIterable<Document> getAllSessions(){
+    public FindIterable<Document> getAllSessions() {
         serverStatService.sessionPageHadBeenvisited();
-        MongoCollection<Document> sessionCollection = mongoClient.getDatabase(DBDatabase.CONTENT_DB).getCollection(DBCollection.SESSIONS_COLLECTION);
+        MongoCollection<Document> sessionCollection = mongoClient.getDatabase(DBDatabase.CONTENT_DB)
+                .getCollection(DBCollection.SESSIONS_COLLECTION);
+
+        LOG.info(sessionCollection);
         return sessionCollection.find();
     }
-    
+
 }
