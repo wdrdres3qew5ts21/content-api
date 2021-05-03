@@ -20,7 +20,7 @@ pipeline {
         AZ_AKZ_TENANT = credentials('AZ_AKZ_TENANT')
         AZ_CONTAINER_BASIC_AUTH= credentials('AZ_CONTAINER_BASIC_AUTH')
         CONTAINER_IMAGE = 'content-web'
-        AZ_CONTAINER_REGISTRY_URL = 'fabmedicalntt.azurecr.io'
+        AZ_CONTAINER_REGISTRY_URL = 'fabmedicalnttlin.azurecr.io'
         AZ_AKS_NAME = "evolution-ntt"
         AZ_AKS_RESOUCE_GROUP = "fabmedical-ntt"
         // ชื่อของเครื่องที่ต้องการจะ Hold Approve ก่อนที่จะ Deploy ขึ้นไป

@@ -23,7 +23,7 @@ spec:
       imagePullSecrets:
       - name: registry-secret
       containers:
-      - image: fabmedicalntt.azurecr.io/content-api:IMAGE_BUILD_ID
+      - image: fabmedicalnttlin.azurecr.io/content-api:IMAGE_BUILD_ID
         readinessProbe:
           tcpSocket:
             port: 8080
