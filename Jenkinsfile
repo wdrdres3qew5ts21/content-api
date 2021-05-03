@@ -104,7 +104,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo ==='
-                    sh 'mvn -B -DskipTests clean package'
+                    // sh 'mvn -B -DskipTests clean package'
                     /*
                     archiveArtifacts :เราสามารถเลือกได้ด้วยว่าอยากเก็บ artifact ที่ build ออกมาเข้าไปใน Jenkins 
                     หรือไม่ซึ่งก็จะแสดงบน GUI ของ Jenkins เป้นไฟล์ .jar ให้สามารถ Download ได้เช่นเดียวกันด้วย
@@ -140,8 +140,10 @@ pipeline {
                     // เลข ID ด้านหลังคือการ reference Credentials ของ Container Registry ที่เราเก็บไว้ใน Jenkins Server นั่นเอง
                     // ที่ต้องระบุเพราะว่าเวลาเรา Push container image ไปเก็บใน Private Registry เราก็จะต้องระบุ Credentials ด้วยนั่นเองเช่น
                     // URL ที่ Login เข้าไป username + password หรืออาจจะเป็น public key, access token ต่างๆขึ้นกับ policy security
+
+                    sh 'ls'
                     docker.withRegistry("https://fabmedicalnttlin.azurecr.io", 'AZ_CONTAINER_BASIC_AUTH') {
-                        def newApp = docker.build("${env.FULL_CONTAINER_IMAGE_PATH}","src/main/docker/Dockerfile.jvm")
+                        def newApp = docker.build("${env.FULL_CONTAINER_IMAGE_PATH}","-f src/main/docker/Dockerfile.jvm   .")
                         newApp.push()
                     }
                 }
