@@ -19,7 +19,7 @@ pipeline {
         AZ_AKZ_PASSWORD = credentials('AZ_AKZ_PASSWORD')
         AZ_AKZ_TENANT = credentials('AZ_AKZ_TENANT')
         AZ_CONTAINER_BASIC_AUTH= credentials('AZ_CONTAINER_BASIC_AUTH')
-        CONTAINER_IMAGE = 'content-web'
+        CONTAINER_IMAGE = 'content-api'
         AZ_CONTAINER_REGISTRY_URL = 'fabmedicalnttlin.azurecr.io'
         AZ_AKS_NAME = "evolution-ntt"
         AZ_AKS_RESOUCE_GROUP = "fabmedical-ntt"
@@ -203,10 +203,10 @@ pipeline {
                             input message: 'Approve Deploy to Production?', ok: 'Yes'
                         }
                         env.K8S_DEPLOY_YAML_PROFILE = "k8s-deployment-production.yaml"
-                        env.K8S_SERVICE_YAML_PROFILE = "k8s-service-production.yaml"
+                        // env.K8S_SERVICE_YAML_PROFILE = "k8s-service-production.yaml"
                     } else {
                         env.K8S_DEPLOY_YAML_PROFILE = "k8s-deployment.yaml"
-                        env.K8S_SERVICE_YAML_PROFILE = "k8s-service-nodeport.yaml"
+                        // env.K8S_SERVICE_YAML_PROFILE = "k8s-service-nodeport.yaml"
                     }
                     // ใช้กำหนด docker image ที่จะรัน pod
                     // sed คือ Stream Editor บน Linux ใช้ในการแก้ไข Text File ตาม Pattern Regex ที่พบซึ่งก็จะคล้ายๆกับ AWK เช่นเดียวกัน
