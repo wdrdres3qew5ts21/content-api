@@ -98,13 +98,14 @@ pipeline {
                 docker {
                     image 'maven:3.6.3-jdk-11'
                     args '-v /root/.m2:/root/.m2'
+                    reuseNode true
                 }
             }
 
             steps {
                 script {
                     sh 'echo ==='
-                    // sh 'mvn -B -DskipTests clean package'
+                    sh 'mvn -B -DskipTests clean package'
                     /*
                     archiveArtifacts :เราสามารถเลือกได้ด้วยว่าอยากเก็บ artifact ที่ build ออกมาเข้าไปใน Jenkins 
                     หรือไม่ซึ่งก็จะแสดงบน GUI ของ Jenkins เป้นไฟล์ .jar ให้สามารถ Download ได้เช่นเดียวกันด้วย
@@ -141,7 +142,7 @@ pipeline {
                     // ที่ต้องระบุเพราะว่าเวลาเรา Push container image ไปเก็บใน Private Registry เราก็จะต้องระบุ Credentials ด้วยนั่นเองเช่น
                     // URL ที่ Login เข้าไป username + password หรืออาจจะเป็น public key, access token ต่างๆขึ้นกับ policy security
 
-                    sh 'ls'
+                    sh 'ls target/quarkus-app'
                     docker.withRegistry("https://fabmedicalnttlin.azurecr.io", 'AZ_CONTAINER_BASIC_AUTH') {
                         def newApp = docker.build("${env.FULL_CONTAINER_IMAGE_PATH}","-f src/main/docker/Dockerfile.jvm   .")
                         newApp.push()
