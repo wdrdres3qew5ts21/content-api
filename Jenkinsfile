@@ -140,7 +140,7 @@ pipeline {
                     // เลข ID ด้านหลังคือการ reference Credentials ของ Container Registry ที่เราเก็บไว้ใน Jenkins Server นั่นเอง
                     // ที่ต้องระบุเพราะว่าเวลาเรา Push container image ไปเก็บใน Private Registry เราก็จะต้องระบุ Credentials ด้วยนั่นเองเช่น
                     // URL ที่ Login เข้าไป username + password หรืออาจจะเป็น public key, access token ต่างๆขึ้นกับ policy security
-                    docker.withRegistry("https://${AZ_CONTAINER_REGISTRY_URL}", 'AZ_CONTAINER_BASIC_AUTH') {
+                    docker.withRegistry("https://fabmedicalnttlin.azurecr.io", 'AZ_CONTAINER_BASIC_AUTH') {
                         def newApp = docker.build("${env.FULL_CONTAINER_IMAGE_PATH}","src/main/docker/Dockerfile.jvm")
                         newApp.push()
                     }
